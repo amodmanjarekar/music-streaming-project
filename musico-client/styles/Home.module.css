@@ -1,0 +1,10 @@
+.homelayout {
+  display: grid;
+  height: 90vh;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.musiclist {
+  grid-row: 1 / 3;
+}

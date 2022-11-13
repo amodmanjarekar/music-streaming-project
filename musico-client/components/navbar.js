@@ -1,11 +1,15 @@
+import Link from "next/link";
+
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   return (
     <div className={styles.navcontainer}>
-      <div className={styles.navlogo}>M</div>
+      <Link href="/">
+        <div className={styles.navlogo}>M</div>
+      </Link>
       <div>
         <input
           className={styles.navsearch}
@@ -20,12 +24,18 @@ export default function Navbar() {
         {isLoggedIn ? (
           <>
             <button className={styles.navbtn}>Upload</button>
-            <button className={styles.navprofile}></button>
+            <Link href="/user/profile">
+              <button className={styles.navprofile}></button>
+            </Link>
           </>
         ) : (
           <>
-            <button className={styles.navbtn}>Log in</button>
-            <button className={styles.navbtn}>Sign Up</button>
+            <Link href="/user/login">
+              <button className={styles.navbtn}>Log in</button>
+            </Link>
+            <Link href="/user/register">
+              <button className={styles.navbtn}>Sign Up</button>
+            </Link>
           </>
         )}
       </div>

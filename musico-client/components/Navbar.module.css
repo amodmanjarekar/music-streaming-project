@@ -13,6 +13,7 @@
   margin: 4px;
   font-size: 45px;
   border: solid 5px var(--accent);
+  cursor: pointer;
 }
 
 .navsearch {
@@ -52,6 +53,7 @@
   font-size: 16px;
   padding: 4px 8px;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
@@ -66,4 +68,5 @@
   background-color: #ccc;
   border: none;
   border-radius: 50%;
+  cursor: pointer;
 }

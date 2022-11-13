@@ -1,0 +1,55 @@
+.authcontainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.authform {
+  background-color: #333;
+  border-radius: 8px;
+  padding: 16px 32px;
+}
+
+.authform input {
+  width: 240px;
+  height: 30px;
+  margin: 8px;
+  border: none;
+  background-color: #333;
+  border-bottom: solid 2px var(--accent);
+  transition: all 0.2s;
+}
+
+.authform input:focus {
+  background-color: #222;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.authform button {
+  width: 240px;
+  height: 30px;
+  margin: 8px;
+  background-color: var(--accent);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.authform button:hover {
+  background-color: var(--highlight);
+}
+
+.authform p {
+  margin: 0px 8px;
+  font-size: 14px;
+}
+
+.authlink {
+  color: var(--accent);
+}
+
+.authlink:hover {
+  color: #fff;
+  text-decoration: underline;
+}

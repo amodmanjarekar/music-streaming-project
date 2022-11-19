@@ -6,12 +6,12 @@ export default function Register() {
   return (
     <div className={styles.authcontainer}>
       <div className={styles.authform}>
-        <form>
+        <form action="http://localhost:8888/user/login" method="POST">
           <input type="text" placeholder="Username" />
           <br />
           <input type="password" placeholder="Password" />
           <br />
-          <button>Log In</button>
+          <button type="submit">Log In</button>
           <p>
             Or&nbsp;
             <Link className={styles.authlink} href="/user/register">

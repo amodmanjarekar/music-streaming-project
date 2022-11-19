@@ -2,7 +2,7 @@
 const con = require('./dbConnection');
 
 exports.home = function(req, res, next){
-
+    
     let songs=[];
     let albums=[];
     let playlists=[];
@@ -37,6 +37,21 @@ exports.home = function(req, res, next){
                 playlists: playlists,
                 albums: albums
             })
+        }
+    })
+}
+
+
+exports.search = function(req, res, next){
+
+    let search_query= req.query.search_query;
+    
+    let sql = `select title from song where title='%${search_query}%`;
+    con.query(sql, (err, result, f)=>{
+        if(err) throw err;
+        else{
+            result= JSON.parse(JSON.stringify(result));
+            res.json(result);
         }
     })
 }

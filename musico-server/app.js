@@ -16,7 +16,7 @@ const app = express();
 
 app.use(express.urlencoded({extended:false}));
 app.use(bodyParser.urlencoded({extended:false}));
-//app.use(cors);
+app.use(cors());
 
 app.use(session({
     secret: process.env.SECRET_KEY,

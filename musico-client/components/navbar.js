@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <div className={styles.navcontainer}>

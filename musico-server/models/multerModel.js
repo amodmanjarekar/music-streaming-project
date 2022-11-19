@@ -6,7 +6,7 @@ const fs = require("fs");
 
 // multer setup
 const storage = multer.diskStorage({
-  destination: "../server/public/uploads",
+  destination: "../musico-server/public/uploads",
   filename: function (req, file, cb) {
     cb(null, file.fieldname + Date.now() + path.extname(file.originalname));
   },
@@ -23,11 +23,9 @@ const upload = multer({
 
 function checkFileType(file, cb) {
   const filetypes = /mp3|wav/;
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  
 
-  const mimetype = filetypes.test(file.mimetype);
-
-  if (mimetype && extname) {
+  if (file.mimetype==="audio/mp3" || file.mimetype==="audio/mpeg") {
     return cb(null, true);
   } else {
     cb("Error! Only audios are valid.");

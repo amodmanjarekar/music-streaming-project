@@ -16,12 +16,17 @@ export default function Register() {
 
   const handleregister = async (e) => {
     e.preventDefault();
+    const formdata = new URLSearchParams();
+    formdata.append("name", name);
+    formdata.append("username", username);
+    formdata.append("email", email);
+    formdata.append("password", password);
 
     try {
       await axios({
         method: "post",
-        url: "http://192.168.86.148:8888/user/register",
-        data: { name, username, email, password },
+        url: `http://${process.env.SERVER_URL}/user/register`,
+        data: formdata,
       }).then((response) => {
         console.log(response.data);
       });

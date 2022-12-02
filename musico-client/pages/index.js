@@ -15,15 +15,16 @@ export default function Home() {
 
   useEffect(() => {
     setIsLoading(true);
+    console.log(process.env.SERVER_URL);
     axios({
       method: "get",
-      url: `http://192.168.86.148:8888/`,
+      url: `http://${process.env.SERVER_URL}`,
     }).then((response) => {
       setMusicList(response.data.songs);
       setAlbumList(response.data.albums);
       setPlaylistList(response.data.playlists);
       setIsLoading(false);
-      // console.log(response.data.songs);
+      console.log(response.data.songs);
       // console.log(playlistList);
     });
   }, []);

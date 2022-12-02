@@ -9,7 +9,7 @@ import MusicContext from "../lib/MusicContext";
 import SearchContext from "../lib/SearchContext";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState();
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isCurrent, setIsCurrent] = useState(false);
@@ -28,10 +28,10 @@ export default function Navbar() {
   useEffect(() => {
     axios({
       method: "get",
-      url: `http://192.168.86.148:8888/user/profile`,
+      url: `http://${process.env.SERVER_URL}/user/auth`,
     }).then((response) => {
       console.log(response.data);
-      response.data ? setIsLoggedIn(true) : setIsLoggedIn(true);
+      response.data ? setIsLoggedIn(true) : setIsLoggedIn(false);
     });
   }, []);
 

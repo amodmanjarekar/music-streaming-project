@@ -31,6 +31,7 @@ export default function Login() {
       if (res.data.status == "success") {
         setErrormsg("Success!");
         userdata.setUserId(res.data.user_id);
+        console.log(userdata.userId);
         Router.push("/");
       } else if (res.data.status == "invalid credentials") {
         setErrormsg("Invalid Credentials. Please try again.");

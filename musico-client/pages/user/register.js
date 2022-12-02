@@ -1,8 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import Link from "next/link";
 
 import styles from "../../styles/Auth.module.css";
+import UserContext from "../../lib/UserContext";
 
 export default function Register() {
   const [name, setName] = useState();
@@ -13,6 +14,8 @@ export default function Register() {
   const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+
+  const userdata = useContext(UserContext);
 
   const handleregister = async (e) => {
     e.preventDefault();
@@ -29,6 +32,9 @@ export default function Register() {
         data: formdata,
       }).then((response) => {
         console.log(response.data);
+        if (response.data.status === "success") {
+          userdata.setUserId(response.data.user_id);
+        }
       });
     } catch (err) {
       console.log(err);

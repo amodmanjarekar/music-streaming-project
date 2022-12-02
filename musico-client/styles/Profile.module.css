@@ -66,3 +66,46 @@
   height: 40vh;
   background-color: #333;
 }
+
+.profilemusic div,
+.profilegroups div {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.songbox {
+  display: flex;
+  width: 160px;
+  max-height: 160px;
+  background-color: var(--accent);
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 18px;
+  margin: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.albumbox {
+  display: flex;
+  width: 80px;
+  max-height: 160px;
+  background-color: var(--accent);
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  margin: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.songbox:hover,
+.albumbox:hover {
+  background-color: #fff;
+  color: var(--highlight);
+}

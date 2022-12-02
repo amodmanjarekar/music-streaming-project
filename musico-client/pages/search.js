@@ -110,7 +110,7 @@ const AlbumListItem = (props) => {
       className={styles.listitem}
       onClick={() => {
         Router.push({
-          pathname: "discover/album",
+          pathname: "/discover/album",
           query: { album_id: props.id },
         });
       }}

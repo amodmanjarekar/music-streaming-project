@@ -73,6 +73,8 @@
 }
 
 .navprofile {
+  position: relative;
+  display: flex;
   width: 50px;
   height: 50px;
   margin-left: 8px;
@@ -80,6 +82,33 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.navprofilehead {
+  position: absolute;
+  background-color: #fff;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6px;
+}
+
+.navprofilebody {
+  position: absolute;
+  background-color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
 }
 
 .navcenter {

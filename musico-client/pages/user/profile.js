@@ -8,9 +8,9 @@ export default function Profile() {
       <div className={styles.profilecardcontainer}>
         <div className={styles.profilecard}>
           <div className={styles.profilephoto}></div>
-          <div>Name</div>
-          <div>username</div>
-          <div>ID</div>
+          <div>Amod Manjarekar</div>
+          <div>amod@root</div>
+          <div>ArtistID: 17</div>
         </div>
       </div>
       <div className={styles.profiledatacontainer}>

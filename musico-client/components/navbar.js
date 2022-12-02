@@ -1,29 +1,48 @@
 import Link from "next/link";
+import axios from "axios";
+
 import { FaPlay, FaPause, FaForward, FaBackward } from "react-icons/fa";
 import { useState, useEffect, useRef, useContext } from "react";
-import MusicContext from "../lib/MusicContext";
-
 import styles from "./Navbar.module.css";
 
+import MusicContext from "../lib/MusicContext";
+import SearchContext from "../lib/SearchContext";
+
 export default function Navbar() {
-  const isLoggedIn = true;
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [isCurrent, setIsCurrent] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+
+  const searchRef = useRef();
 
   const musicPlayer = useRef();
   const musicProgress = useRef();
   const animationRef = useRef();
 
+  const searchquery = useContext(SearchContext);
+
   const nowplaying = useContext(MusicContext);
 
   useEffect(() => {
+    axios({
+      method: "get",
+      url: `http://192.168.86.148:8888/user/profile`,
+    }).then((response) => {
+      console.log(response.data);
+      response.data ? setIsLoggedIn(true) : setIsLoggedIn(true);
+    });
+  }, []);
+
+  useEffect(() => {
     if (nowplaying.currentSong) {
+      musicPlayer.current?.play();
       setIsCurrent(true);
       setIsPlaying(true);
     }
     // musicPlayer.current?.play();
-    console.log(nowplaying.currentSong?.name);
+    // console.log(nowplaying.currentSong?.name);
   }, [nowplaying.currentSong]);
 
   useEffect(() => {
@@ -70,11 +89,18 @@ export default function Navbar() {
             <div className={styles.navlogo}>M</div>
           </Link>
           <div>
-            <input
-              className={styles.navsearch}
-              type="text"
-              placeholder="Search for music..."
-            />
+            <Link href="/search">
+              <input
+                ref={searchRef}
+                className={styles.navsearch}
+                type="text"
+                placeholder="Search for music..."
+                onKeyUpCapture={() => {
+                  searchquery.setQuery(searchRef.current.value);
+                  // console.log(searchquery.query);
+                }}
+              />
+            </Link>
           </div>
           <div>
             <button className={styles.navsearchbtn}>Go</button>
@@ -83,7 +109,7 @@ export default function Navbar() {
         {isCurrent ? (
           <div className={`${styles.navcenter} ${styles.musicplayer}`}>
             <h1>
-              {nowplaying.currentSong?.artist} - {nowplaying.currentSong?.title}
+              {nowplaying.currentSong?.artist} - {nowplaying.currentSong?.title}{" "}
             </h1>
             <div className={styles.musiccontrols}>
               <div>
@@ -124,7 +150,7 @@ export default function Navbar() {
             <>
               <button className={styles.navbtn}>Upload</button>
               <Link href="/user/profile">
-                <button className={styles.navprofile}></button>
+                <ProfileButton></ProfileButton>
               </Link>
             </>
           ) : (
@@ -155,3 +181,12 @@ export default function Navbar() {
     </div>
   );
 }
+
+const ProfileButton = () => {
+  return (
+    <div className={styles.navprofile}>
+      <div className={styles.navprofilehead}></div>
+      <div className={styles.navprofilebody}></div>
+    </div>
+  );
+};

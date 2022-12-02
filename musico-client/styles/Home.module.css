@@ -21,7 +21,6 @@
 
 .musiccard {
   display: flex;
-  justify-content: space-between;
   width: 80%;
   padding: 12px;
   border: solid 2px var(--accent);
@@ -34,6 +33,10 @@
   background-color: var(--accent);
 }
 
+.musiccard div {
+  margin: 0px 8px;
+}
+
 .alist,
 .plist {
   background-image: linear-gradient(to right, transparent, var(--highlight));
@@ -44,6 +47,10 @@
 }
 
 .samplebox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   width: 160px;
   height: 160px;
   border: solid 2px var(--accent);

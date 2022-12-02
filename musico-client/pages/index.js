@@ -9,17 +9,22 @@ import MusicContext from "../lib/MusicContext";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const [musicList, setMusicList] = useState();
+  const [musicList, setMusicList] = useState([]);
+  const [albumList, setAlbumList] = useState([]);
+  const [playlistList, setPlaylistList] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
     axios({
       method: "get",
-      url: `http://localhost:8888/`,
+      url: `http://192.168.86.148:8888/`,
     }).then((response) => {
       setMusicList(response.data.songs);
+      setAlbumList(response.data.albums);
+      setPlaylistList(response.data.playlists);
       setIsLoading(false);
-      console.log(response.data.songs);
+      // console.log(response.data.songs);
+      // console.log(playlistList);
     });
   }, []);
 
@@ -35,9 +40,10 @@ export default function Home() {
               <Musiccard
                 id={i.song_id}
                 title={i.title}
-                artist={i.artist}
+                artist={i.name}
                 duration={i.duration}
-                albumid={i.album_id}
+                album={i.album_name}
+                dateyear={i.date_year}
                 link={i.link}
               />
             );
@@ -61,18 +67,48 @@ export default function Home() {
         Recent Albums:
         <br />
         <div className={styles.alist}>
-          <div className={styles.samplebox}></div>
-          <div className={styles.samplebox}></div>
-          <div className={styles.samplebox}></div>
+          {!albumList.length ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <p>Nothing to show here yet...</p>
+              <h1>Add your own albums!</h1>
+            </div>
+          ) : (
+            <>
+              <div className={styles.samplebox}>{albumList[0].album_name}</div>
+              <div className={styles.samplebox}>{albumList[2].album_name}</div>
+              <div className={styles.samplebox}>View More &gt;</div>
+            </>
+          )}
         </div>
       </div>
       <div className={styles.plistcontainer}>
         Recent Playlists:
         <br />
         <div className={styles.plist}>
-          <div className={styles.samplebox}></div>
-          <div className={styles.samplebox}></div>
-          <div className={styles.samplebox}></div>
+          {!playlistList.length ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <p>Nothing to show here yet...</p>
+              <h1>Add your own playlist!</h1>
+            </div>
+          ) : (
+            <>
+              <div className={styles.samplebox}>{playlistList[0].pl_name}</div>
+              <div className={styles.samplebox}>{playlistList[1].pl_name}</div>
+              <div className={styles.samplebox}>View More &gt;</div>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -88,20 +124,25 @@ function Musiccard(props) {
       title: props.title,
       artist: props.artist,
       duration: props.duration,
-      albumid: props.albumid,
+      album: props.album,
       link: props.link,
     });
   }
+
+  const getYear = (dateyear) => {
+    const time = new Date(dateyear);
+    return time.getFullYear();
+  };
 
   return (
     <div onClick={changeCurrentSong} className={styles.musiccard}>
       <div>
         <FaPlay />
       </div>
-      <div>{props.title}</div>
+      <div style={{ flex: "1" }}>{props.title}</div>
       <div>{props.artist}</div>
       <div>{props.albumid}</div>
-      <div>{props.duration}</div>
+      <div>{getYear(props.dateyear)}</div>
     </div>
   );
 }

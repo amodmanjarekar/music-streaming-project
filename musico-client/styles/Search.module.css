@@ -1,0 +1,35 @@
+.searchgroup {
+  height: 28vh;
+  padding: 20px 60px;
+}
+
+.searchgroup h4 {
+  margin: 0;
+}
+
+.listcontainer {
+  display: flex;
+  margin: 20px 40px;
+  overflow-x: scroll;
+}
+
+.listitem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+  height: 18vh;
+  width: 18vh;
+  margin: 0px 30px;
+  padding: 8px;
+  border: 2px solid var(--highlight);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.listitem:hover {
+  background-color: var(--highlight);
+  font-size: 18px;
+}

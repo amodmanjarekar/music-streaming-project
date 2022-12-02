@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 
 import Layout from "../components/layout";
 import SearchContext from "../lib/SearchContext";
@@ -31,7 +31,6 @@ export default function Search() {
         method: "get",
         url: `http://${process.env.SERVER_URL}/search?search_query=${searchquery.query}`,
       }).then((response) => {
-        // console.log(response);
         setFoundSongs(response.data.songs);
         setFoundAlbums(response.data.albums);
         setFoundArtists(response.data.artists);
@@ -64,7 +63,7 @@ export default function Search() {
         <h4>Albums containing {`'${searchquery.query}'`}:</h4>
         <div className={styles.listcontainer}>
           {foundAlbums.map((i) => {
-            return <ListItem name={i.album_name} />;
+            return <AlbumListItem id={i.album_id} name={i.album_name} />;
           })}
         </div>
       </div>
@@ -101,6 +100,22 @@ const SongListItem = (props) => {
   return (
     <div className={styles.listitem} onClick={changeCurrentSong}>
       {props.title}
+    </div>
+  );
+};
+
+const AlbumListItem = (props) => {
+  return (
+    <div
+      className={styles.listitem}
+      onClick={() => {
+        Router.push({
+          pathname: "discover/album",
+          query: { album_id: props.id },
+        });
+      }}
+    >
+      {props.name}
     </div>
   );
 };

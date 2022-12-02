@@ -1,15 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import Link from "next/link";
-import qs from "qs";
 
 import styles from "../../styles/Auth.module.css";
+import Router from "next/router";
+import UserContext from "../../lib/UserContext";
 
 export default function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [errormsg, setErrormsg] = useState("");
   const usernameRef = useRef();
   const passwordRef = useRef();
+
+  const userdata = useContext(UserContext);
 
   const handlelogin = async (e) => {
     e.preventDefault();
@@ -24,35 +28,16 @@ export default function Login() {
         url: `http://${process.env.SERVER_URL}/user/login`,
         data: formdata,
       });
-      axios({
-        method: "get",
-        url: `http://${process.env.SERVER_URL}/user/profile`,
-      }).then((res) => {
-        console.log(res);
-      });
+      if (res.data.status == "success") {
+        setErrormsg("Success!");
+        userdata.setUserId(res.data.user_id);
+        Router.push("/");
+      } else if (res.data.status == "invalid credentials") {
+        setErrormsg("Invalid Credentials. Please try again.");
+      }
     } catch (err) {
       console.log(err);
     }
-    // fetch("", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   body: new URLSearchParams({ username: username, password: password }),
-    // });
-    // await axios
-    //   .post(
-    //     "http://192.168.240.148:8888/user/login",
-    //     {
-    //       username: username,
-    //       password: password,
-    //     },
-    //     { "content-type": "application/x-www-form-urlencoded" }
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   return (
@@ -82,6 +67,7 @@ export default function Login() {
           <button type="submit" onClick={handlelogin}>
             Log In
           </button>
+          <p style={{ color: "red" }}>{errormsg}</p>
           <p>
             Or&nbsp;
             <Link className={styles.authlink} href="/user/register">

@@ -6,6 +6,7 @@ import { FaPlay } from "react-icons/fa";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
 import MusicContext from "../lib/MusicContext";
+import Router from "next/router";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +16,6 @@ export default function Home() {
 
   useEffect(() => {
     setIsLoading(true);
-    console.log(process.env.SERVER_URL);
     axios({
       method: "get",
       url: `http://${process.env.SERVER_URL}`,
@@ -24,8 +24,6 @@ export default function Home() {
       setAlbumList(response.data.albums);
       setPlaylistList(response.data.playlists);
       setIsLoading(false);
-      console.log(response.data.songs);
-      // console.log(playlistList);
     });
   }, []);
 
@@ -81,9 +79,16 @@ export default function Home() {
             </div>
           ) : (
             <>
-              <div className={styles.samplebox}>{albumList[0].album_name}</div>
-              <div className={styles.samplebox}>{albumList[2].album_name}</div>
-              <div className={styles.samplebox}>View More &gt;</div>
+              {albumList.map((i) => {
+                return (
+                  <AlbumCard
+                    id={i.album_id}
+                    name={i.album_name}
+                    artistid={i.artist_id}
+                    dateyear={i.date_year}
+                  />
+                );
+              })}
             </>
           )}
         </div>
@@ -147,6 +152,22 @@ function Musiccard(props) {
     </div>
   );
 }
+
+const AlbumCard = (props) => {
+  return (
+    <div
+      className={styles.samplebox}
+      onClick={() => {
+        Router.push({
+          pathname: "discover/album",
+          query: { album_id: props.id },
+        });
+      }}
+    >
+      {props.name}
+    </div>
+  );
+};
 
 Home.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;

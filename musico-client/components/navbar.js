@@ -8,6 +8,7 @@ import styles from "./Navbar.module.css";
 
 import MusicContext from "../lib/MusicContext";
 import SearchContext from "../lib/SearchContext";
+import UserContext from "../lib/UserContext";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -26,16 +27,16 @@ export default function Navbar() {
 
   const nowplaying = useContext(MusicContext);
 
+  const userdata = useContext(UserContext);
+
   const router = useRouter();
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `http://${process.env.SERVER_URL}/user/auth`,
-    }).then((response) => {
-      console.log(response.data);
-      response.data ? setIsLoggedIn(true) : setIsLoggedIn(false);
-    });
+    if (userdata.userId != 0) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -166,7 +167,9 @@ export default function Navbar() {
         <div className={styles.navbtncontainer}>
           {isLoggedIn ? (
             <>
-              <button className={styles.navbtn}>Upload</button>
+              <Link href="/user/upload">
+                <button className={styles.navbtn}>Upload</button>
+              </Link>
               <Link href="/user/profile">
                 <ProfileButton></ProfileButton>
               </Link>

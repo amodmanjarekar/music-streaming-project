@@ -1,18 +1,22 @@
 
-const session = require('express-session');
+// const session = require('express-session');
+const express = require('express')
 
 function isAuthenticate(req, res, next){
-    if(req.session.userId===undefined || req.session.userId===null){
-        // res.status(200);
-        // console.log("not authenticated");
-        res.send({
-            status: "not logged in"
-        })
-   }
-    else{
-        // res.status(401);              // unauthorized
-        next();
-    }
+
+    console.log(req.session);
+    if(req.session && req.session.auth===true) next();
+    else res.send(false);
+
+    // if(req.session && (req.session.userId!=undefined || req.session.userId!=null)) next();
+    // else res.send(false);
+
+    // if(req.session.userId===undefined || req.session.userId===null){
+    //     res.send(false);
+    // }
+    // else{
+    //     next();
+    // }
 }
 
 module.exports = isAuthenticate;

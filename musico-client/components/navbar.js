@@ -157,7 +157,7 @@ export default function Navbar() {
               <audio
                 ref={musicPlayer}
                 // src={`../../musico-server/public/nuumonelite.mp3`}
-                src={nowplaying.currentSong?.link}
+                src={`/uploads/${nowplaying.currentSong?.link}`}
               ></audio>
             </div>
           </div>

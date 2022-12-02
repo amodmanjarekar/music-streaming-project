@@ -6,7 +6,7 @@ const fs = require("fs");
 
 // multer setup
 const storage = multer.diskStorage({
-  destination: "../musico-server/public/uploads",
+  destination: "../musico-client/public/uploads",
   filename: function (req, file, cb) {
     cb(null, file.fieldname + Date.now() + path.extname(file.originalname));
   },

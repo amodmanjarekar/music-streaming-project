@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { FaPlay, FaPause, FaForward, FaBackward } from "react-icons/fa";
 import { useState, useEffect, useRef, useContext } from "react";
+import { useRouter } from "next/router";
 import styles from "./Navbar.module.css";
 
 import MusicContext from "../lib/MusicContext";
@@ -24,6 +25,8 @@ export default function Navbar() {
   const searchquery = useContext(SearchContext);
 
   const nowplaying = useContext(MusicContext);
+
+  const router = useRouter();
 
   useEffect(() => {
     axios({
@@ -89,21 +92,36 @@ export default function Navbar() {
             <div className={styles.navlogo}>M</div>
           </Link>
           <div>
-            <Link href="/search">
-              <input
-                ref={searchRef}
-                className={styles.navsearch}
-                type="text"
-                placeholder="Search for music..."
-                onKeyUpCapture={() => {
-                  searchquery.setQuery(searchRef.current.value);
-                  // console.log(searchquery.query);
-                }}
-              />
-            </Link>
+            <input
+              ref={searchRef}
+              className={styles.navsearch}
+              type="text"
+              placeholder="Search for music..."
+              // onKeyUpCapture={() => {
+              //   if (searchRef.current.value.length > 2) {
+              //     // console.log(searchquery.query);
+              //   }
+              // }}
+              onChange={() => {
+                searchquery.setQuery(searchRef.current.value);
+                if (searchRef.current.value.length > 1) {
+                  router.push({
+                    pathname: "/search",
+                  });
+                }
+              }}
+            />
           </div>
           <div>
-            <button className={styles.navsearchbtn}>Go</button>
+            <button
+              className={styles.navsearchbtn}
+              onClick={() => {
+                searchquery.setQuery(searchRef.current.value);
+                router.push(`/search?${searchRef.current.value}`);
+              }}
+            >
+              Go
+            </button>
           </div>
         </div>
         {isCurrent ? (

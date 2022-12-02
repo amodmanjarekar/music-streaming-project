@@ -1,5 +1,5 @@
 .searchgroup {
-  height: 28vh;
+  height: 26vh;
   padding: 20px 60px;
 }
 
@@ -9,8 +9,14 @@
 
 .listcontainer {
   display: flex;
+  align-items: center;
+  height: 20vh;
   margin: 20px 40px;
   overflow-x: scroll;
+  overflow-y: none;
+  background-color: #111;
+  /* scrollbar-width: none; */
+  /* box-shadow: inset -12px 0px 12px -12px #000; */
 }
 
 .listitem {
@@ -20,7 +26,8 @@
   text-align: center;
   font-size: 16px;
   height: 18vh;
-  width: 18vh;
+  min-width: 18vh;
+  max-width: 18vh;
   margin: 0px 30px;
   padding: 8px;
   border: 2px solid var(--highlight);
@@ -31,5 +38,8 @@
 
 .listitem:hover {
   background-color: var(--highlight);
-  font-size: 18px;
+
+  height: 19vh;
+  min-width: 19vh;
+  max-width: 19vh;
 }
